@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MVCBookStore.Models.NHAXUATBAN>
+<div class="title_box">Nhà xuất bản</div>
+<ul class="left_menu">
+    @foreach (var item in Model)
+    {
+        for (int i = 1; i < 9; i++)
+        {
+            if (@item.MaNXB == i)
+            {
+                if (i % 2 == 0)
+                {
+                    <li class="even"><a href="@Url.Action("SPTTheoNXB", "BookStore", new { id = item.MaNXB})">@item.TenNXB </a></li>
+                }
+                else
+                {
+                    <li class="odd"><a href="@Url.Action("SPTTheoNXB", "BookStore", new { id = item.MaNXB })">@item.TenNXB</a></li>
+                }
+            }
+        }
+    }
+</ul>

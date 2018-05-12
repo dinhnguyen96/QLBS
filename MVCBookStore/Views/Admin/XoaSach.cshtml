@@ -1,0 +1,202 @@
+﻿@model MVCBookStore.Models.SACH
+
+@{
+    ViewBag.Title = "Xóa sách";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <strong>Email: </strong>info@yourdomain.com
+                &nbsp;&nbsp;
+                <strong>Support: </strong>+90-897-678-44
+            </div>
+
+        </div>
+    </div>
+</header>
+<div class="navbar navbar-inverse set-radius-zero">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">
+                <img src="~/assets/img/logo.png" />
+            </a>
+        </div>
+
+        <div class="left-div">
+            <div class="user-settings-wrapper">
+                <ul class="nav">
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-settings">
+                            <div class="media">
+                                <a class="media-left" href="#">
+                                    <img src="~/assets/img/64-64.jpg" alt="" class="img-rounded" />
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading">Jhon Deo Alex </h4>
+                                    <h5>Developer & Designer</h5>
+
+                                </div>
+                            </div>
+                            <hr />
+                            <h5><strong>Personal Bio : </strong></h5>
+                            Anim pariatur cliche reprehen derit.
+                            <hr />
+                            <a href="#" class="btn btn-info btn-sm">Full Profile</a>&nbsp; <a href="login.html" class="btn btn-danger btn-sm">Logout</a>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="menu-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="navbar-collapse collapse ">
+                    <ul id="menu-top" class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Trang chủ", "Home", "Admin")</li>
+                        <li>@Html.ActionLink("Quản lý chủ đề", "Sanpham", "Admin")</li>
+                        <li>@Html.ActionLink("Quản lý nhà xuất bản", "Nhaxuatban", "Admin")</li>
+                        <li>@Html.ActionLink("Quản lý sách", "Sach", "Admin")</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<div class="content-wrapper">
+    <div class="container">
+        <h2>XÁC NHẬN THÔNG TIN CẦN XÓA</h2>
+        <h3>Bạn quyết định xóa quyển sách này?</h3>
+        <div>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    Tên sách:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Tensach)
+                </dd>
+
+                <dt>
+                    Đơn vị tính:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Donvitinh)
+                </dd>
+
+                <dt>
+                    Đơn giá:
+                </dt>
+
+                <dd>
+                    @string.Format("{0:0,0}", Model.Dongia) VNĐ
+                </dd>
+
+                <dt>
+                    Mô tả:
+                </dt>
+
+                <dd style="width:600px;text-align:justify">
+                    @Html.DisplayFor(model => model.Mota)
+                </dd>
+
+                <dt>
+                    Hình minh họa:
+                </dt>
+
+                <dd>
+                    <img src="@Url.Content("~/Hinhsanpham/"+Model.Hinhminhhoa)" width="120px" />
+                </dd>
+
+                <dt>
+                    Chủ đề:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MaCD)
+                </dd>
+
+                <dt>
+                    Nhà xuất bản:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MaNXB)
+                </dd>
+
+                <dt>
+                    Ngày cập nhật:
+                </dt>
+
+                <dd>
+                    @string.Format("{0:dd/MM/yyyy}", Model.Ngaycapnhat)
+                </dd>
+
+                <dt>
+                    Số lượng tồn:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Soluongban)
+                </dd>
+
+                <dt>
+                    Số lần xem:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.solanxem)
+                </dd>
+
+                <dt>
+                    Mới:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.moi)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-default" /> |
+                    @Html.ActionLink("TRỞ VỀ", "Sach")
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                &copy;@ViewBag.Username
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script src="~/assets/js/jquery-1.11.1.js"></script>
+<script src="~/assets/js/bootstrap.js"></script>

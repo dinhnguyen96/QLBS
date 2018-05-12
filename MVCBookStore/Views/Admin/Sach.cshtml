@@ -1,0 +1,180 @@
+﻿@using MVCBookStore.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<MVCBookStore.Models.SACH>
+@helper Truncate(string input, int length)
+{
+if (input.Length < length)
+{
+        @input
+}
+else
+{
+        @input.Substring(0, length)<text>...</text>
+}
+}
+@{
+    ViewBag.Title = "Quản lý bán sách";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <strong>Email: </strong>info@yourdomain.com
+                &nbsp;&nbsp;
+                <strong>Support: </strong>+90-897-678-44
+            </div>
+
+        </div>
+    </div>
+</header>
+<div class="navbar navbar-inverse set-radius-zero">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">
+                <img src="~/assets/img/logo.png" />
+            </a>
+        </div>
+
+        <div class="left-div">
+            <div class="user-settings-wrapper">
+                <ul class="nav">
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-settings">
+                            <div class="media">
+                                <a class="media-left" href="#">
+                                    <img src="~/assets/img/64-64.jpg" alt="" class="img-rounded" />
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading">Jhon Deo Alex </h4>
+                                    <h5>Developer & Designer</h5>
+
+                                </div>
+                            </div>
+                            <hr />
+                            <h5><strong>Personal Bio : </strong></h5>
+                            Anim pariatur cliche reprehen derit.
+                            <hr />
+                            <a href="#" class="btn btn-info btn-sm">Full Profile</a>&nbsp; <a href="login.html" class="btn btn-danger btn-sm">Logout</a>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="menu-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="navbar-collapse collapse ">
+                    <ul id="menu-top" class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Trang chủ", "Home", "Admin")</li>
+                        <li>@Html.ActionLink("Quản lý chủ đề", "Sanpham", "Admin")</li>
+                        <li>@Html.ActionLink("Quản lý nhà xuất bản", "Nhaxuatban", "Admin")</li>
+                        <li>@Html.ActionLink("Quản lý sách", "Sach", "Admin")</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<div class="content-wrapper">
+    <div class="container">
+        <h2>QUẢN LÝ THÔNG TIN SÁCH</h2>
+        <p>
+            @Html.ActionLink("THÊM MỚI", "Themmoisach")
+        </p>
+        <table class="table" border="1">
+            <tr>
+                <th style="width:200px"> Tên sách</th>
+                <th style="width:100px"> Đơn vị tính</th>
+                <th style="width:100px"> Đơn giá </th>
+                <th style="width:300px"> Mô tả </th>
+                <th style="width:120px"> Hình minh họa</th>
+                <th style="width:120px"> Tên chủ đề </th>
+                <th style="width:100px"> Tên nhà xuất bản </th>
+                <th style="width:150px"> Ngày cập nhật</th>
+                <th style="width:120px"> Số lượng bán </th>
+                <th style="width:120px"> Số lần xem </th>
+                <th style="width:120px"> Mới </th>
+                <th style="width:350px">  </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tensach)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Donvitinh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dongia)
+                    </td>
+                    <td>
+                        @Truncate(item.Mota, 100)
+                    </td>
+                    <td>
+                        <img src="@Url.Content("~/Hinhsanpham/" + item.Hinhminhhoa)" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CHUDE.TenChuDe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NHAXUATBAN.TenNXB)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ngaycapnhat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Soluongban)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.solanxem)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.moi)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Sửa", "Suasach", new { id = item.Masach }) |
+                        @Html.ActionLink("Chi tiết", "Chitietsach", new { id = item.Masach }) |
+                        @Html.ActionLink("Xóa", "Xoasach", new { id = item.Masach })
+                    </td>
+                </tr>
+            }
+        </table>
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount;
+        <div class="MenuTrang">
+            @Html.PagedListPager(Model, page => Url.Action("Sach", new { page = page }))
+        </div>
+        <style>
+            .MenuTrang li {
+                display: inline;
+            }
+        </style>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                &copy; @ViewBag.Username
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="~/assets/js/jquery-1.11.1.js"></script>
+<script src="~/assets/js/bootstrap.js"></script>
+
